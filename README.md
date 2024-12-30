@@ -25,7 +25,7 @@ Again, clone the repository. To deploy the application to AWS, you will need to 
 ./iac/utils/crreate-s3-tf-backend-bucket.sh 
 ```
 ******
-*********Note: this bucket has been created without terraform. Hence, you must manage and track it on your own. Deleting it when you stop hosting the site. For this, a script is provide. 
+**Note**: this bucket has been created **without** terraform. Hence, you must manage and track it on your own. Deleting it when you stop hosting the site. For this, a script is provide. 
 
 
 Next, we need to use the [ssh](https://en.wikipedia.org/wiki/Secure_Shell) protocol to securely connect to our [EC2](https://aws.amazon.com/ec2/) instance in order to transfer over our application code. This workflow does not follow [gitOps](https://about.gitlab.com/topics/gitops/) design principals but still, it allows for the deployment. The command for this will look something like:
