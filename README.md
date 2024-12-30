@@ -32,12 +32,11 @@ Next, we need to use the [ssh](https://en.wikipedia.org/wiki/Secure_Shell) proto
 ```
 ssh -i "~/ssh/aws-dev-key" ubuntu@ec2-3-146-3.eu-west-2.compute.amazonaws.com 
 ```
-We need to install docker and docker-compose on our EC2 instance such that we can run our production version of the platform using docker-compose. 
-```
-sudo apt install docker docker-compose 
-```
 
 After this, we can use the [scp](https://en.wikipedia.org/wiki/Secure_copy_protocol) (secure copy protocol) in order to transfer our application code to our EC2 instance. 
+```
+scp -r ./web/ ubuntu@webserver:~/
+```
 
 
 
