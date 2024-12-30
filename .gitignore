@@ -3,3 +3,6 @@ Pipfile.lock
 **/data/
 **/images/
 **/media/
+
+*.dev.env
+*.prod.env
