@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./cbay
+      dockerfile: Dockerfile.webserver
+    container_name: web_ctn
+    volumes:
+      - static:/static
+      # want to watch for changes? 
+      - ./cbay:/usr/src/app
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000 # 
+    ports:
+      - 8000:8000
+    env_file:
+      - .dev.env
+    depends_on:
+      - redis
+      - postgres
+
+  nginx:
+    build:
+      context: ./cbay
+      dockerfile: Dockerfile.nginx
+    container_name: nginx_ctn
+    volumes:
+      - ./cbay/default.conf:/etc/ngnix/conf.d/default.conf
+      - static:/static
+    ports:
+      - 80:80
+    depends_on:
+      - web
+
+  redis:
+    image: redis:alpine
+    container_name: redis_ctn
+
+  celery:
+    build:
+      context: ./cbay
+      dockerfile: ./Dockerfile.webserver
+    container_name: clry_wrk_ctn
+    command: celery -A core worker -l info
+    env_file:
+      - .dev.env
+    depends_on:
+      - redis
+    # volumes:
+    #   - ./cbay:/usr/src/app
+
+  celery-beat:
+    build:
+      context: ./cbay
+      dockerfile: ./Dockerfile.webserver
+    container_name: clry_bt_ctn
+    command: celery -A core beat -l info
+    env_file:
+      - .dev.env
+    depends_on:
+      - redis
+    # volumes:
+    #   - ./cbay:/usr/src/app
+  postgres:
+    build:
+      context: ./cbay
+      dockerfile: ./Dockerfile.postgres
+    ports:
+      - 5432:5432
+    env_file:
+      - .dev.env
+
+    volumes:
+      - ./data/db:/var/lib/postgresql
+    container_name: pg_ctn
+    
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_ctn
+    restart: always
+    env_file:
+      - .dev.env
+    ports:
+      - 5050:80
+    # networks:
+    #   web_net:
+    #     ipv4_address: 192.168.0.3
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
+
+
+volumes:
+  static:
+# Networks
+# static IP address for PG admin container to connect to database server container 
+# networks:
+#   web_net:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: "192.168.0.0/24"
+#           gateway: 192.168.0.1
+
