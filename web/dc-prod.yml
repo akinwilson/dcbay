@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./cabay
+      dockerfile: Dockerfile.webserver
+    container_name: web_ctn
+    volumes:
+      - static:/static
+      - ./cbay:/usr/src/app
+    restart: always
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000 
+    ports:
+      - 8000:8000
+    env_file:
+      - .prod.env
+    depends_on:
+      - redis
+      - postgres
+  btcd:
+    image: kylemanna/bitcoind
+    container_name: btcd_ctn
+    restart: unless-stopped
+    volumes:
+      - bitcoind-data:/bitcoin/.bitcoin
+  nginx:
+    image: nginx:1.15-alpine
+    container_name: nginx_ctn
+    restart: unless-stopped
+    volumes:
+      - static:/static
+      - ./data/nginx:/etc/nginx/conf.d
+      # - ./data/certbot/conf:/etc/letsencrypt
+      # - ./data/certbot/www:/var/www/certbot
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - web
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: cert_ctn
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/certbot/conf:/etc/letsencrypt
+  #     - ./data/certbot/www:/var/www/certbot
+  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  redis:
+    image: redis:alpine
+    container_name: redis_ctn
+
+  celery:
+    build:
+      context: ./cbay
+      dockerfile: ./Dockerfile.webserver
+    container_name: clry_wrk_ctn
+    command: celery -A core worker -l info
+    # command: sh -c pip install debugpy -t /tmp && python /tmp/debugpy --listen 0.0.0.0:6969 -m celery -A backend.celery worker -l info
+    depends_on:
+      - redis
+      - postgres
+    env_file:
+      - .prod.env
+    # volumes:
+    #   - ./cbay:/usr/src/app
+
+  celery-beat:
+    build:
+      context: ./cbay
+      dockerfile: ./Dockerfile.webserver
+    container_name: clry_bt_ctn
+    command: celery -A core beat -l info
+    depends_on:
+      - redis
+      - postgres
+    env_file:
+      - .prod.env
+    # volumes:
+    #   - ./cbay:/usr/src/app
+  postgres:
+    build:
+      context: ./cbay
+      dockerfile: ./Dockerfile.postgres
+    ports:
+      - 5432:5432
+    env_file:
+      - .prod.env
+    volumes:
+      - ./data/db:/var/lib/postgresql
+    container_name: pg_ctn
+    
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_ctn
+    restart: always
+    env_file:
+      - .prod.env
+    ports:
+      - 5050:80
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
+
+
+volumes:
+  static:
+
+
