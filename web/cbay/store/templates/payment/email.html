@@ -1,0 +1,47 @@
+{% autoescape off %}
+Hi {{ user.user_name }},
+
+Thank you for ordering with Neuro Pharma. 
+
+Your order reference details are:
+
+{{ order_details }}
+
+The order details are:
+
+{{ order_table }}
+
+
+The shipping details are: 
+
+{{ order.first_name }} {{ order.last_name }}
+{{ order.address1 }}
+{{ order.post_code }}
+{{ order.city }}
+{{ order.county }}
+{{ order.country }}
+
+Balance to pay: {{ fiat_value }} GBP | {{ crypto_value }} BTC.
+
+
+Please make a payment of {{ crypto_value }} BTC to the Bitcoin wallet address: 
+
+=================================================================================
+{{ payment_address }}
+=================================================================================
+
+
+If there are any mistakes in the shipping address, please contact us as soon as possible. 
+
+Once we have received payment via the above Bitcoin wallet address, you will receive a confirmation email and your order will be shipped 
+
+
+If this is your first time making a purchase using bitcoin, the application <a href="url">Coinbase</a> offers a user friendly marketplace where one can use purchase, sell and send crypto-currencies.
+
+Be sure to purchase Bitcoin (ticker label: BTC) for the purposes of sending it to the above address. The address will only accept Bitcoin.
+
+
+All the best,
+The Neuro Pharma Team. 
+
+{% endautoescape %}

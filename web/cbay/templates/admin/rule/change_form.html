@@ -1,0 +1,9 @@
+{% extends 'admin/change_form.html' %}
+
+{% block submit_buttons_bottom %}
+    {{ block.super }} {# This calls super to get the default layout#}
+    {# now let's add a button underneath it  #}
+    <div  class="submit-row">  {# this button will POST request with the name 'execute' #}
+       <input  type="submit"  value="Execute the rule"  name="execute">
+    </div>
+{% endblock %}

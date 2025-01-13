@@ -1,0 +1,41 @@
+{% extends "../store/base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+
+<style>
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    .account-form input {
+        border: 2px solid #ccc;
+        height: calc(2em + .75rem + 2px);
+    }
+
+    .account-form input:focus {
+        border-color: #1497ff;
+        box-shadow: none;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-12">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-6  mx-auto">
+                            <div class="p-4">
+                                <h3 class="mb-4">Order has been accepted</h3>
+                                <p>Check your email: <b>{{ user.email }}</b> for payment details. Once payment has been confirmed, your order will appear in your account history and it will be shipped to the provided address.</p>
+                                <p> If there are any issues with shipment address, please email us as soon as possible under <b>admin@admin.com</b></p>
+                                <a href="{% url "account:dashboard" %}">See orders</a>
+                            </div>       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

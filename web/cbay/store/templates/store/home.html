@@ -1,0 +1,57 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}Store{% endblock %}
+
+
+{% block content %}
+
+
+<main>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-4">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="h1 fw-bold">Focus, Learn and Grow</h1>
+        <p class="lead text-muted">UK mainland <u><B>next day delivery available</B></u> for orders completed before
+          10:00am (GMT) on prior working day. Available Monday to Friday.</p>
+        <p>
+          <a href="{% url "account:login" %}" class="btn btn-primary my-2">Make an account</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="pb-3 h5">All Products</div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+
+        {% for product in products %}
+
+        <div class="col">
+          <div class="card shadow-sm">
+            <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
+            <div class="card-body">
+              <p class="card-text">
+                <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+              </p>
+              <div class="d-flex justify-content-end align-items-left">
+                <small class="text-muted">£{{product.price}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+
+{% endblock %}

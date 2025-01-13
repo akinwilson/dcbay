@@ -1,0 +1,116 @@
+{% extends "../store/base.html" %}
+{% load static %}
+{% block title %}Payment{% endblock %}
+{% block content %}
+
+<style>
+  .account-form input,
+    {
+    border: 2px solid #ccc;
+    height: calc(2em + .75rem + 2px);
+  }
+
+  .form-control {
+    border: 2px solid #ccc;
+  }
+
+  .account-form input:focus {
+    border-color: #1497ff;
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(255, 0, 0, 0.6);
+  }
+</style>
+
+
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="col-md-12">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+
+            <div id="payment-form" class="col-12 col-lg-6 mx-auto">
+              <h3 class="mb-3">Shipping address</h3>
+              <!-- Error messages in this element -->
+              <div id="card-errors" class="a" role="alert"></div>
+                            
+              <form action="/orders/add/" method="post">
+                {% csrf_token %}
+                
+                <div class="row g-1">
+                  <div class="col-sm-7">
+                    <label for="first_name" class="form-label">First Name</label>
+                    {{ form.first_name }}
+                    <div class="invalid-feedback">
+                      Valid first name is required.
+                    </div>
+                  </div>
+                  <div class="row g-1">
+                    <div class="col-sm-7">
+                      <label for="last_name" class="form-label">Last Name</label>
+                      {{ form.last_name }}
+                      <div class="invalid-feedback">
+                        Valid last name is required.
+                      </div>
+                    </div>
+                  <div class="col-12">
+                    <label for="email" class="form-label">Email <span class="text-muted">(Required)</span></label>
+                    {{ form.email }}
+                    <div class="invalid-feedback">
+                      Please enter a valid email address for payment details.
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="city" class="form-label">Town</label>
+                    {{ form.city }}
+                    <div class="invalid-feedback">
+                      Please enter your shipping address.
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="address" class="form-label">Address</label>
+                    {{ form.address }}
+                    <div class="invalid-feedback">
+                      Please enter your shipping address.
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <label for="postcode" class="form-label">Postcode</label>
+                    {{ form.post_code }}
+                    <div class="invalid-feedback">
+                       Postcode required.
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="col-md-4">
+                    <label for="county" class="form-label">County</label>
+                   {{ form.county }}
+                    <div class="invalid-feedback">
+                      Please provide a valid county.
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <label for="country" class="form-label">Country</label>
+                    {{ form.country }}
+                    <div class="invalid-feedback">
+                      Please select a valid country.
+                    </div>
+                  </div>
+                 {{ form.order_key }}
+
+                <hr class="my-4">
+                <h4 class="mb-3">Payment</h4>
+                <button id="submit"  class="btn btn-primary w-100 fw-bold" >Order</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

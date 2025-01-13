@@ -1,0 +1,220 @@
+{% extends "../base.html" %}
+{% load static %}
+
+
+{% block name %}
+{% block title %}
+{% if product %}{{ product.title }}{% else %}Products{% endif %}
+{% endblock %}
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    .checked {
+        color:
+            #ffc700
+    }
+</style>
+<div class="container">
+    <main class="pt-5">
+        <div>
+            <h1 class="col-md-5 col-lg-5 order-md-first">{{ product.title }}</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    {% if avg_rate <= 1.0 %} <span name="star" class="fa fa-star checked"></span>
+                        <span name="star" class="fa fa-star"></span>
+                        <span name="star" class="fa fa-star"></span>
+                        <span name="star" class="fa fa-star"></span>
+                        <span name="star" class="fa fa-star"></span>
+                        {% endif %}
+                        {% if 1.0 < avg_rate and avg_rate <= 2.0 %} <span name="star" class="fa fa-star checked"></span>
+                            <span name="star" class="fa fa-star checked"></span>
+                            <span name="star" class="fa fa-star"></span>
+                            <span name="star" class="fa fa-star"></span>
+                            <span name="star" class="fa fa-star"></span>
+                            {% endif %}
+                            {% if 2.0 < avg_rate and avg_rate <= 3.0 %} <span name="star" class="fa fa-star checked">
+                                </span>
+                                <span name="star" class="fa fa-star checked"></span>
+                                <span name="star" class="fa fa-star checked"></span>
+                                <span name="star" class="fa fa-star"></span>
+                                <span name="star" class="fa fa-star"></span>
+                                {% endif %}
+                                {% if 3 < avg_rate and avg_rate <= 4 %} <span name="star" class="fa fa-star checked">
+                                    </span>
+                                    <span name="star" class="fa fa-star checked"></span>
+                                    <span name="star" class="fa fa-star checked"></span>
+                                    <span name="star" class="fa fa-star checked"></span>
+                                    <span name="star" class="fa fa-star"></span>
+                                    {% endif %}
+                                    {% if 4 < avg_rate and avg_rate <= 5 %} <span name="star" class="fa fa-star checked">
+                                        </span>
+                                        <span name="star" class="fa fa-star checked"></span>
+                                        <span name="star" class="fa fa-star checked"></span>
+                                        <span name="star" class="fa fa-star checked"></span>
+                                        <span name="star" class="fa fa-star checked"></span>
+                                        {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p>({{ no_review }} reviews)</p>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3">
+
+            <div class="col-md-5 col-lg-5 order-md-first bg-light">
+                <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
+                    src="{{ product.image.url }}">
+            </div>
+            <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
+                <h1 class="mb-0 h3">{{ product.subtitle }}</h1>
+                <p></p>
+
+                <div class="border">
+                    <div class="col border-bottom">
+                        <div class="row p-3">
+                            <div class="col-6">Unit price</div>
+                            <div class="col-6 text-end"><span class="h4 fw-bold">£{{ product.price }}</span></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row p-3">
+                            <div class="col-6">
+                                <label for="select">Qty</label>
+                                <select id="select">
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                    <option value="">6</option>
+                                    <option value="">7</option>
+                                    <option value="">8</option>
+                                    <option value="">9</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="col-6 text-end"><button type="button" class="btn btn-secondary btn-sm"
+                                    id="add-button" value="{{product.id}}">Add to basket</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <span class="lead">Uses</span>
+                <p>{{ product.uses }}</p>
+
+
+                <span class="lead">Dosage</span>
+                <p>{{ product.dosage }}</p>
+
+
+                <span class="lead">Side effects</span>
+                <p>{{ product.side_effects }}</p>
+            </div>
+        </div>
+        <hr>
+        <h1 class="col-md-5 col-lg-5 order-md-first">Reviews</h1>
+        <div class="container" style="max-width: 1000px">
+            {% for review in review_pages %}
+            <div class="row border-bottom">
+
+                <div class="col-12 bg-light p-3 d-flex justify-content-between">
+
+
+                    <div class="row">
+                        <div class="col"><span>{{review.created}}</span></div>
+                    </div>
+                    <div class="col-sm-4 col-md-2" style="justify-content: right;">
+                        {% if review.rate <= 1.0 %} <span name="star" class="fa fa-star checked"></span>
+                            <span name="star" class="fa fa-star"></span>
+                            <span name="star" class="fa fa-star"></span>
+                            <span name="star" class="fa fa-star"></span>
+                            <span name="star" class="fa fa-star"></span>
+                            {% endif %}
+                            {% if 1.0 < review.rate and review.rate <= 2.0 %} <span name="star"
+                                class="fa fa-star checked"></span>
+                                <span name="star" class="fa fa-star checked"></span>
+                                <span name="star" class="fa fa-star"></span>
+                                <span name="star" class="fa fa-star"></span>
+                                <span name="star" class="fa fa-star"></span>
+                                {% endif %}
+                                {% if 2.0 < review.rate and review.rate <= 3.0 %} <span name="star"
+                                    class="fa fa-star checked"></span>
+                                    <span name="star" class="fa fa-star checked"></span>
+                                    <span name="star" class="fa fa-star checked"></span>
+                                    <span name="star" class="fa fa-star"></span>
+                                    <span name="star" class="fa fa-star"></span>
+                                    {% endif %}
+                                    {% if 3.0 < review.rate and review.rate <= 4.0 %} <span name="star"
+                                        class="fa fa-star checked"></span>
+                                        <span name="star" class="fa fa-star checked"></span>
+                                        <span name="star" class="fa fa-star checked"></span>
+                                        <span name="star" class="fa fa-star checked"></span>
+                                        <span name="star" class="fa fa-star"></span>
+                                        {% endif %}
+                                        {% if 4.0 < review.rate and review.rate <= 5.0 %} <span name="star"
+                                            class="fa fa-star checked"></span>
+                                            <span name="star" class="fa fa-star checked"></span>
+                                            <span name="star" class="fa fa-star checked"></span>
+                                            <span name="star" class="fa fa-star checked"></span>
+                                            <span name="star" class="fa fa-star checked"></span>
+                                            {% endif %}
+                    </div>
+                    <!-- <br> -->
+                </div>
+                <div class="row"><span>{{ review.comment }}</span></div>
+            </div>
+            {% endfor %}
+            <div class="pagination"  style="justify-content: center;">
+                <span class="step-links">
+
+                    <div class="row">
+                        <span class="current">
+                            Page {{ review_pages.number }} of {{ review_pages.paginator.num_pages }}.
+                        </span>
+                    </div>
+                    {% if review_pages.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    {% if review_pages.has_next %}   
+                    <a href="?page={{ review_pages.next_page_number }}">next</a>
+                    <a href="?page={{ review_pages.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+
+
+<script>
+    // Update basket counter
+    $(document).on("click", "#add-button", function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: '{% url "basket:basket_add" %}',
+            data: {
+                productid: $('#add-button').val(),
+                productqty: $('#select option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: "post"
+            },
+            success: function (json) {
+                document.getElementById("basket_qty").innerHTML = json.qty
+            },
+            error: function (xhr, errmsg, err) { }
+        });
+    })
+</script>
+{%endblock%}
