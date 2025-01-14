@@ -9,7 +9,7 @@ from basket.basket import Basket
 from account.models import UserBase
 from orders.models import Order, OrderItem
 from store.models import Product
-import logging 
+import logging
 
 logger = logging.getLogger("django")
 
@@ -30,9 +30,10 @@ from .cc import create_named_payment_address, get_wallet
 
 from orders.forms import OrderForm
 
+
 def generate_order_markdown(basket, order, request):
     order_list = []
-    for (k, v) in basket.basket.items():
+    for k, v in basket.basket.items():
         product = Product.objects.filter(pk=k)[0]
         order_list.append(
             {
@@ -50,19 +51,21 @@ def generate_order_markdown(basket, order, request):
     )
     return order_table, order_detail_table
 
+
 def get_xrate():
     logger.info("Retriving exhange rate from:")
     key = "https://api.binance.com/api/v3/ticker/price?symbol=BTCGBP"
     logger.info(key)
     data = requests.get(key)
-    return float(data.json()["price"]) 
+    return float(data.json()["price"])
+
 
 def generate_payment_address(fiat_value, order):
     # Hit API for current btc to gbp exchange price.
     # logger.info("Attempting to retrieve Retriving exchange rate from cache ... ")
     # BTC_X_RATE = cache.get("BTC_X_RATE")
     # logger.info(f"Cache return: {BTC_X_RATE}")
-    # if BTC_X_RATE is None: 
+    # if BTC_X_RATE is None:
     BTC_X_RATE = get_xrate()
 
     crypto_value = BTC_X_RATE ** (-1) * float(fiat_value)
@@ -103,7 +106,7 @@ def order_placed(request):
     )
     intent.save()
 
-    subject = "Neuropharma: Bitcoin payment invoice"
+    subject = "Cbay: Bitcoin payment invoice"
     message = render_to_string(
         "payment/email.html",
         {
@@ -128,10 +131,9 @@ class Error(TemplateView):
 @login_required
 def BasketView(request):
 
-    import uuid 
+    import uuid
+
     context = {
-        "form": OrderForm(initial={"order_key":str(uuid.uuid4())}),
-        }
-    return render(
-        request, "payment/home.html", context=context
-    )
+        "form": OrderForm(initial={"order_key": str(uuid.uuid4())}),
+    }
+    return render(request, "payment/home.html", context=context)

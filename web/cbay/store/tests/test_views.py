@@ -37,5 +37,5 @@ class TestViewResponse(TestCase):
         response = self.c.get("/", HTTP_HOST="noaddress.com")
         self.assertEqual(response.status_code, 400)  # will fail
         # allowed
-        response = self.c.get("/", HTTP_HOST="neuropharma.co.uk")
+        response = self.c.get("/", HTTP_HOST="cbay.io")
         self.assertEqual(response.status_code, 200)  # should work
