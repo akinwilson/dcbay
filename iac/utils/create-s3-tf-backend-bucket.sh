@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-AWS_ACCOUNT="neuro"
+AWS_ACCOUNT="cbay"
 AWS_PROFILE="dev"
 AWS_REGION="eu-west-2"
 AWS_BUCKET="web-iac-svc"

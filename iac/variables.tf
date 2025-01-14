@@ -43,7 +43,7 @@ variable "key_path" {
 variable "domain_name" {
 
   description = "Domain name to be used"
-  default     = "neuropharma.co.uk"
+  default     = "cbay.io"
 }
 
 variable "db_password" {
