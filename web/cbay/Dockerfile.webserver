@@ -9,7 +9,8 @@ RUN pip install -r requirements.txt
 
 # copy init-webserver.sh
 COPY ./init-webserver.sh /usr/src/app/init-webserver.sh
-RUN chmod +x init-webserver.sh
+# RUN chmod +x init-webserver.sh
+# RUN chown root:root init-webserver.sh
 # copy project
 COPY . /usr/src/app/
 # EXPOSE 5455
