@@ -116,7 +116,7 @@ aws ec2 describe-instances --query 'Reservations[].Instances[].[PublicIpAddress,
 
 1) need to configure production and development environments 
 ----> cannot easily watch for changes to code to reboot watching server from 
-----> need to run server with `python manage.py runserver 0.0.0.0:8000` for it to be able to watch for changes. Currently working on production. Started with `docker-compose.dev.yml` and `docker-compose.prod.yml` files. 
+----> need to run server with `python manage.py runserver 0.0.0.0:8000` for it to be able to watch for changes. Currently working on production. Started with `dc.dev.yaml` and `dc.prod.yaml` files. 
 
 
 2) prepoluate user form with existing email for shipping form in HTML form `web/cbay/store/templates/payment/home.html`

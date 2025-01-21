@@ -1,14 +1,20 @@
-## Local development outside of container html updating automatically 
+## Local development 
+
+### Development outside of container for hotreloading 
+
+Currently, it is difficult for developers to quickly develop upon the application since the webserver needs to access domain names of services like [celery](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html) or persistence layers like [redis](https://en.wikipedia.org/wiki/Redis), where these services receive their domain names  via `docker-compose`. To avoid having to continously swtich between in and outer container development, review [this blog](https://docs.appseed.us/technologies/django/docker-auto-reload/) which 
+
+You can try to run `./`
 
 1) Load the environment variables files form `web/cbay/`:
 
-```export $(cat ../.dev.env | xargs) && export PRIVATE_MNEMONIC="case loan concert avocado mercy today sauce ring come special spawn ship"```
+```export $(cat ../dev.env | xargs) && export PRIVATE_MNEMONIC="case loan concert avocado mercy today sauce ring come special spawn ship"```
 
 from inside diretory `web/`
 
 For some reason, exporting a long env varaible using the above doesnt work for `PRIVATE_MNEMONIC`.  
 
-_In `./.prod.env` database `HOST` variable is network name corresponding to container rather than localhost and it sets the `BCL_CONFIG_FILE` env varaible for setting the logging config location (it's set to inside the container)_
+_In `./prod.env` database `HOST` variable is network name corresponding to container rather than localhost and it sets the `BCL_CONFIG_FILE` env varaible for setting the logging config location (it's set to inside the container)_
 
 2) Run containerised postgres DB
 
