@@ -32,7 +32,7 @@ Again, clone the repository. To deploy the application to AWS, you will need to 
 ******
 **Note**: this bucket has been created **without** terraform. Hence, you must manage and track it on your own. Deleting it when you stop hosting the site. For this, a script is provide. 
 
-Next you will next to `init`, `plan` and `apply` infra deployment to AWS. You can do this by running: 
+Next you will next to `init`, `plan` and `apply` the infra deployment to AWS. You can do this by running: 
 
 ```
 terraform init
