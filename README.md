@@ -32,7 +32,11 @@ Again, clone the repository. To deploy the application to AWS, you will need to 
 ******
 **Note**: this bucket has been created **without** terraform. Hence, you must manage and track it on your own. Deleting it when you stop hosting the site. For this, a script is provide. 
 
-next you will next to plan and infra deployment. You can do this by running: 
+Next you will next to `init`, `plan` and `apply` infra deployment to AWS. You can do this by running: 
+
+```
+terraform init
+```
 ```
 terraform plan
 ```
@@ -41,9 +45,7 @@ check the output such that you are happy with the resources that are about to be
 terraform apply
 ```
 
-
-
-Next, we need to use the [ssh](https://en.wikipedia.org/wiki/Secure_Shell) protocol to securely connect to our [EC2](https://aws.amazon.com/ec2/) instance in order to transfer over our application code. This workflow does not follow [gitOps](https://about.gitlab.com/topics/gitops/) design principals but still, it allows for the deployment. The command for this will look something like:
+It will take some time ~5-10 minutes to provision the required AWS resources. Once it has been completely, we need to use the [ssh](https://en.wikipedia.org/wiki/Secure_Shell) protocol to securely connect to our [EC2](https://aws.amazon.com/ec2/) instance in order to transfer over our application code. This workflow does not follow [gitOps](https://about.gitlab.com/topics/gitops/) design principals but still, it allows for the deployment. The command for this will look something like:
 ```
 ssh -i "~/ssh/aws-dev-key" ubuntu@ec2-3-146-3.eu-west-2.compute.amazonaws.com 
 ```
@@ -52,7 +54,10 @@ After this, we can use the [scp](https://en.wikipedia.org/wiki/Secure_copy_proto
 ```
 scp -r ./web/ ubuntu@webserver:~/
 ```
-
+and then deploy our application using the `docker-compose` production environment file 
+```
+ubuntu@webserver: docker-compose -f dc.dev.yaml up
+```
 
 
 ## Further improvements 
