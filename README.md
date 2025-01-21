@@ -27,7 +27,7 @@ docker-compose -f dc.dev.yaml up
 Again, clone the repository. To deploy the application to AWS, you will need to provision the required resources to host the site. You will also need AWS credentials to an AWS account. First and foremost, create a [state-store](https://developer.hashicorp.com/terraform/language/state/backends) for terraform to use in order to remotely track the infrastructure deployed. 
 
 ```
-./iac/utils/crreate-s3-tf-backend-bucket.sh 
+./iac/utils/create-s3-tf-backend-bucket.sh 
 ```
 ******
 **Note**: this bucket has been created **without** terraform. Hence, you must manage and track it on your own. Deleting it when you stop hosting the site. For this, a script is provide. 
@@ -58,7 +58,14 @@ and then deploy our application using the `docker-compose` production environmen
 ```
 ubuntu@webserver: docker-compose -f dc.dev.yaml up
 ```
-
+You can removed the deployment with 
+```
+terraform destroy 
+```
+and remove the state-store bucket with: 
+```
+./iac/utils/delete-s3-tf-backend-bucket.sh
+```
 
 ## Further improvements 
 1) Currently, end-users of the site can only choose bitcoin as a payment option. An improvment would be to also integrate more accepted crypto-currenies like for example [monero](https://www.getmonero.org/). 
