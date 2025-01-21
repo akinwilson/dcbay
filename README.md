@@ -15,6 +15,11 @@ For local development, first clone the repository and run a script that will spi
 ```
 ./web/cbay/development.sh
 ```
+Since we have adopted a containerised workflow 
+```
+docker-compose -f dc.dev.yaml up 
+```
+
 
 
 
