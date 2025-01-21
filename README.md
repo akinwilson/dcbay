@@ -17,7 +17,7 @@ For local development, first clone the repository and run a script that will spi
 ```
 Since we have adopted a containerised workflow 
 ```
-docker-compose -f dc.dev.yaml up 
+docker-compose -f web/dc.dev.yaml up 
 ```
 
 
@@ -56,7 +56,7 @@ scp -r ./web/ ubuntu@webserver:~/
 ```
 and then deploy our application using the `docker-compose` production environment file 
 ```
-ubuntu@webserver: docker-compose -f dc.dev.yaml up
+ubuntu@webserver: docker-compose -f dc.prod.yaml up
 ```
 You can removed the deployment with 
 ```
