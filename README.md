@@ -15,9 +15,9 @@ For local development, first clone the repository and run a script that will spi
 ```
 ./web/cbay/development.sh
 ```
-Since we have adopted a containerised workflow 
+Potentially, we may have adopted a containerised workflow for **development** and hence you may be able to develop upon the application code with hot-reloading enable. 
 ```
-docker-compose -f web/dc.dev.yaml up 
+cd web && docker-compose -f dc.dev.yaml up 
 ```
 
 
