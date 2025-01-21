@@ -32,6 +32,16 @@ Again, clone the repository. To deploy the application to AWS, you will need to 
 ******
 **Note**: this bucket has been created **without** terraform. Hence, you must manage and track it on your own. Deleting it when you stop hosting the site. For this, a script is provide. 
 
+next you will next to plan and infra deployment. You can do this by running: 
+```
+terraform plan
+```
+check the output such that you are happy with the resources that are about to be provisioned. If so, run 
+```
+terraform apply
+```
+
+
 
 Next, we need to use the [ssh](https://en.wikipedia.org/wiki/Secure_Shell) protocol to securely connect to our [EC2](https://aws.amazon.com/ec2/) instance in order to transfer over our application code. This workflow does not follow [gitOps](https://about.gitlab.com/topics/gitops/) design principals but still, it allows for the deployment. The command for this will look something like:
 ```
@@ -51,10 +61,12 @@ scp -r ./web/ ubuntu@webserver:~/
 3) Currently, the storage available locally to the EC2 instance is used to store the database. It would be benefical to use something like [aurora](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html) to off-load the responsibility of persistence to an external service. 
 4) [Multi-tenancy](https://en.wikipedia.org/wiki/Multitenancy) platform. Instead of the platform allowing for a single e-commerce site to be generated, it would be benefical if user of the platform could *prop-up* their own store fronts, under subdomains,  on the platform. Similar to [shopify](https://www.shopify.com/uk)'s business model.
 
-# To do 30 Dec 2024:
-- Generated script to deploy infrastructure 
-- Generate script to remove infrastructure 
-- write more tests for platform. 
-- Integrate multi-tenancy. 
+# TODO 21 Jan 2025:
+- [ ] Set up containerised development environment. 
+- [ ] Generated script to deploy infrastructure 
+- [ ] Generate script to remove infrastructure 
+- [ ] write more tests for platform. 
+- [ ] Integrate monero as payment option
+- [ ] Integrate multi-tenancy. 
 
 

@@ -2,12 +2,14 @@
 
 # colours 
 GREEN='\033[0;32m'
-RESET='\033[0m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 LIGHTBLUE='\033[1;34m'
 LIGHTPURPLE='\033[1;35m'
 LIGHTCYAN='\033[1;36m'
+# reset 
+RESET='\033[0m'
+
 
 echo "\nStarting services for ${GREEN}local development${RESET}...\n"
 echo "\n${RED}NOTE${RESET}: transitioning over to a complete containerised workflow. Currently, only running DB in and container. But as application grew, more and more serivces need to be added\n"

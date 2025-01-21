@@ -1,7 +1,27 @@
-
+#!/bin/sh
 
 GREEN='\033[0;32m'
+LIGHTPURPLE='\033[1;35m'
+LIGHTCYAN='\033[1;36m'
+YELLOW='\033[1;33m'
+# reset 
 RESET='\033[0m'
+
+
+project_title=$(cat <<"EOF"
+
+     _      _                 
+  __| | ___| |__   __ _ _   _ 
+ / _` |/ __| '_ \ / _` | | | |
+| (_| | (__| |_) | (_| | |_| |
+ \__,_|\___|_.__/ \__,_|\__, |
+                        |___/ 
+
+EOF
+)
+
+echo "${YELLOW}${project_title}${RESET}"
+
 
 # checking if verion returned is null with -z 
 if [ -z "$(docker -v)" ]; then 
@@ -16,7 +36,7 @@ if [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi 
 
-echo "You have all the required tools for local development. "
+echo "\n\nYou have all the required tools for ${LIGHTCYAN}local development${RESET}."
 
 
 # checking for terraform 
@@ -32,6 +52,6 @@ if [ -z "$(aws --version)" ]; then
   exit 1 
 fi 
 
-echo "You have all the required CLI tools for both local development and remote deployment. Ready to begin. "
+echo "You have all the required CLI tools for both ${LIGHTCYAN}local development${RESET} and ${LIGHTPURPLE}remote deployment${RESET}.\n\nReady to begin."
 
 
